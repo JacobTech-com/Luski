@@ -16,6 +16,7 @@ namespace Luski.UI.Main_Form.User_Control
         IRemoteUser User;
         public Friend(IRemoteUser person)
         {
+            //bob
             InitializeComponent();
             User = person;
             UsernameLabel.Text = person.Username;
