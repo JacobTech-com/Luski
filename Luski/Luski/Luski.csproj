@@ -36,10 +36,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Luski.net">
-      <HintPath>..\..\..\Luski.net\Luski.net\Luski.net\bin\Debug\Luski.net.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Downloads\Luski.net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
@@ -50,42 +51,81 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GUI\Controls\ButtonTheme.cs" />
+    <Compile Include="GUI\Controls\LuskiButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\LuskiCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\LuskiFilledButton.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\LuskiTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\LuskiTextBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\Controls\LuskiTitleBar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\CurrentTheme.cs" />
+    <Compile Include="GUI\Fader.cs" />
+    <Compile Include="GUI\LuskiTabControl.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="GUI\LuskiTheme.cs" />
+    <Compile Include="GUI\Utils.cs" />
+    <Compile Include="GUI\Win32.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UI\Login\Load.cs">
+    <Compile Include="UI\MainScreen\MainScreen.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Login\Load.Designer.cs">
-      <DependentUpon>Load.cs</DependentUpon>
+    <Compile Include="UI\MainScreen\MainScreen.Designer.cs">
+      <DependentUpon>MainScreen.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Main Form\Main_Form.cs">
+    <Compile Include="UI\MainScreen\Main_Form.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="UI\Main Form\Main_Form.Designer.cs">
+    <Compile Include="UI\MainScreen\Main_Form.Designer.cs">
       <DependentUpon>Main_Form.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Main Form\User Control\CallPanel.cs">
+    <Compile Include="UI\MainScreen\User Control\CallPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Main Form\User Control\CallPanel.Designer.cs">
+    <Compile Include="UI\MainScreen\User Control\CallPanel.Designer.cs">
       <DependentUpon>CallPanel.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Main Form\User Control\Chat.cs">
+    <Compile Include="UI\MainScreen\User Control\Chat.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Main Form\User Control\Chat.Designer.cs">
+    <Compile Include="UI\MainScreen\User Control\Chat.Designer.cs">
       <DependentUpon>Chat.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Main Form\User Control\Friend.cs">
+    <Compile Include="UI\MainScreen\User Control\ChatMessage.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Main Form\User Control\Friend.Designer.cs">
+    <Compile Include="UI\MainScreen\User Control\ChatMessage.Designer.cs">
+      <DependentUpon>ChatMessage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainScreen\User Control\ChatMessageInline.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MainScreen\User Control\ChatMessageInline.Designer.cs">
+      <DependentUpon>ChatMessageInline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainScreen\User Control\Friend.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MainScreen\User Control\Friend.Designer.cs">
       <DependentUpon>Friend.cs</DependentUpon>
     </Compile>
-    <Compile Include="UI\Main Form\User Control\FriendsPanel.cs">
+    <Compile Include="UI\MainScreen\User Control\FriendsPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="UI\Main Form\User Control\FriendsPanel.Designer.cs">
+    <Compile Include="UI\MainScreen\User Control\FriendsPanel.Designer.cs">
       <DependentUpon>FriendsPanel.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\Theme\Theme.cs" />
@@ -99,20 +139,30 @@
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="UI\Main Form\Main_Form.resx">
+    <EmbeddedResource Include="UI\MainScreen\MainScreen.resx">
+      <DependentUpon>MainScreen.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MainScreen\Main_Form.resx">
       <DependentUpon>Main_Form.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Main Form\User Control\CallPanel.resx">
+    <EmbeddedResource Include="UI\MainScreen\User Control\CallPanel.resx">
       <DependentUpon>CallPanel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Main Form\User Control\Chat.resx">
+    <EmbeddedResource Include="UI\MainScreen\User Control\Chat.resx">
       <DependentUpon>Chat.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Main Form\User Control\Friend.resx">
+    <EmbeddedResource Include="UI\MainScreen\User Control\ChatMessage.resx">
+      <DependentUpon>ChatMessage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MainScreen\User Control\ChatMessageInline.resx">
+      <DependentUpon>ChatMessageInline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MainScreen\User Control\Friend.resx">
       <DependentUpon>Friend.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="UI\Main Form\User Control\FriendsPanel.resx">
+    <EmbeddedResource Include="UI\MainScreen\User Control\FriendsPanel.resx">
       <DependentUpon>FriendsPanel.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
@@ -131,7 +181,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="UI\Login\UI\" />
-    <Folder Include="UI\Main Form\User Control\FriendsPanel\" />
+    <Folder Include="UI\MainScreen\User Control\FriendsPanel\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="MetroModernUI">
@@ -143,6 +193,33 @@
     <PackageReference Include="WebSocketSharp">
       <Version>1.0.3-rc11</Version>
     </PackageReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Capture.PNG" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\1.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\02.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\021.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\022.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\11.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\023.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\13.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

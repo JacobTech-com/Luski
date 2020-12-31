@@ -1,8 +1,8 @@
 ﻿using System;
-using Luski.UI.Login;
 using System.Windows.Forms;
-using Luski.UI.Main_Form;
+using Luski.UI.MainScreen;
 using Luski.net;
+using System.Threading.Tasks;
 
 namespace Luski
 {
@@ -19,7 +19,8 @@ namespace Luski
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new Main_Form(new Server.Login("bob", "bob")));
+            string[] login = System.IO.File.ReadAllText("config.lsk").Split(':');
+            Application.Run(new MainScreen(new Server.Login(login[0], login[1]))); // decrypt later
         }
     }
 }
