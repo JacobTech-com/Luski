@@ -22,56 +22,118 @@ namespace Luski.UI.MainScreen
         Color CloseHove = Color.Red;
         Color CloseCol = Color.White;
         Color TitleBarCol = Color.FromArgb(255,32,32,32);
-        Server.Login s => Program.Server;
 
         public MainScreen(Server.Login Login)
         {
             InitializeComponent();
             Program.Server = Login;
+            this.FormBorderStyle = FormBorderStyle.None;
+            this.DoubleBuffered = true;
+            this.SetStyle(ControlStyles.ResizeRedraw, true);
         }
 
-        public static Image CropToCircle(Image srcImage, Color backGround)
+        private const int cGrip = 16;      // Grip size
+        private const int cCaption = 32;   // Caption bar height;
+
+
+        protected override void WndProc(ref Message m)
         {
-            Bitmap dstImage = new Bitmap(srcImage);
-            Graphics g = Graphics.FromImage(dstImage);
-            using (Brush br = new SolidBrush(backGround))
-            {
-                g.FillRectangle(br, 20, 0, srcImage.Width, srcImage.Height);
+            if (m.Msg == 0x84)
+            {  // Trap WM_NCHITTEST
+                Point pos = new Point(m.LParam.ToInt32());
+                pos = this.PointToClient(pos);
+                if (pos.Y < cCaption)
+                {
+                    m.Result = (IntPtr)2;  // HTCAPTION
+                    return;
+                }
+                if (pos.X >= this.ClientSize.Width - cGrip && pos.Y >= this.ClientSize.Height - cGrip)
+                {
+                    m.Result = (IntPtr)17; // HTBOTTOMRIGHT
+                    return;
+                }
             }
-
-            GraphicsPath path = new GraphicsPath();
-            path.AddEllipse(0, 0, srcImage.Width, srcImage.Height);
-            g.SetClip(path);
-            g.DrawImage(srcImage, 0, 0);
-
-            return dstImage;
+            base.WndProc(ref m);
         }
+
+
+
+        private List<Friend> fr = new List<Friend>();
 
         private void MainScreen_Load(object sender, EventArgs e)
         {
             //ThemeManager.ThemeUpdate += ThemeManager_ThemeUpdate;
 
-            UserIcon.BackgroundImage = CropToCircle(Program.Server.CurrentUser.GetAvatar(), BackColor);
+            var m = Program.Server.CurrentUser.GetAvatar();
+            UserIcon.BackgroundImage = m.CropToCircle(m.Width /2, BackColor);
             UsernameLabel.Text = Program.Server.CurrentUser.Username;
             int inttag = Program.Server.CurrentUser.Tag;
             string tag;
             tag = inttag != -1 ? $"000{inttag}".Substring($"000{inttag}".Length - 4) : "Developer";
             TagLabel.Text = "#" + tag;
+            ChannelPickerPanel.HorizontalScroll.Enabled = false;
+            ChannelPickerPanel.HorizontalScroll.Visible = false;
 
 
-            IReadOnlyList<net.Interfaces.IRemoteUser> friends = Program.Server.CurrentUser.Friends;
-            ChannelPickerPanel.Controls.Add(new Friend(Program.Server.GetUser(0)));
+            IReadOnlyList<IRemoteUser> friends = Program.Server.CurrentUser.Friends;
+            Friend f = new Friend(Program.Server.GetUser(0));
+            f.ClickCon += Friend_Click;
+            ChannelPickerPanel.Controls.Add(f);
+            List<IChannel> chans = new List<IChannel>();
 
-            foreach (net.Interfaces.IRemoteUser item in friends)
+            foreach (IRemoteUser item in friends)
             {
-                ChannelPickerPanel.Controls.Add(new Friend(item));
+                chans.Add(item.Channel);
+                Friend friend = new Friend(item);
+                fr.Add(friend);
+                friend.ClickCon += Friend_Click;
+                ChannelPickerPanel.Controls.Add(friend);
             }
 
-            IUser lastUser;
-            IReadOnlyList<net.Interfaces.IMessage> msgs = Program.Server.GetChannel(Program.Server.CurrentUser.SelectedChannel).GetMessages();
-            for (int i = 0; i < msgs.Count; i++)
+            foreach (IChannel ch in Program.Server.CurrentUser.Channels)
             {
-                chat1.addMessage(msgs[i]);
+                if (!chans.Contains(ch)  && ch.Id != 0)
+                {
+                    Group friend = new Group(ch);
+                    friend.ClickCon += Friend_Click;
+                    ChannelPickerPanel.Controls.Add(friend);
+                }
+            }
+
+            IChannel chan = Program.Server.GetChannel(Program.Server.CurrentUser.SelectedChannel);
+            chat1.UpdateChannel(chan.Title, chan.Description);
+            IReadOnlyList<IMessage> msgs = chan.GetMessages();
+            foreach (IMessage msg in msgs.Reverse())
+            {
+                chat1.addMessage(msg);
+            }
+            Program.Server.MessageReceived += Server_MessageReceived;
+            Program.Server.UserStatusUpdate += Server_UserStatusUpdate;
+        }
+
+        private async Task Server_UserStatusUpdate(IUser before, IUser after)
+        {
+            fr.Where(s => s.User.ID == before.ID).First().UpdateStatus(after.Status.ToString());
+        }
+
+        private async Task Server_MessageReceived(IMessage arg)
+        {
+            if (arg.GetChannel().Id != Program.Server.CurrentUser.SelectedChannel) return;
+            chat1.addMessage(arg);
+        }
+
+        private async Task Friend_Click(IChannel channel)
+        {
+            if (chat1.id != channel.Id.ToString())
+            {
+                chat1.UpdateChannel(channel.Title, channel.Description);
+                chat1.ClearChat();
+                IReadOnlyList<IMessage> msgs = channel.GetMessages();
+                foreach (IMessage msg in msgs.Reverse())
+                {
+                    chat1.addMessage(msg);
+                }
+                Program.Server.ChangeChannel(channel.Id);
             }
         }
 
@@ -152,21 +214,25 @@ namespace Luski.UI.MainScreen
             Notification("bob");
         }
 
-        private void metroButton1_Click(object sender, EventArgs e)
-        {
-            System.Windows.Forms.MessageBox.Show("Username: " + s.CurrentUser.Username + "\n" + "Email: " + s.CurrentUser.Email + "\n" + "ID: " + s.CurrentUser.ID);
-            UsernameLabel.Text = s.CurrentUser.Username;
-            TagLabel.Text = "#" + s.CurrentUser.Tag;
-        }
-
-        private void chat1_Load(object sender, EventArgs e)
-        {
-
-        }
 
         private void chat1_Load_1(object sender, EventArgs e)
         {
 
+        }
+
+        private void MainScreen_PreviewKeyDown(object sender, PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.F11)
+            {
+                if (WindowState == FormWindowState.Maximized)
+                {
+                    WindowState = FormWindowState.Normal;
+                }
+                else
+                {
+                    WindowState = FormWindowState.Maximized;
+                }
+            }
         }
     }
 }

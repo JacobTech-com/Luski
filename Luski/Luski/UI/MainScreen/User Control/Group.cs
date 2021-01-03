@@ -11,29 +11,24 @@ using System.Windows.Forms;
 
 namespace Luski.UI.MainScreen.User_Control
 {
-    public partial class Friend : UserControl
+    public partial class Group : UserControl
     {
-        public IRemoteUser User;
-        public Friend(IRemoteUser person)
+        IChannel chan;
+        public Group(IChannel person)
         {
             //bob
             InitializeComponent();
-            User = person;
-            UsernameLabel.Text = person.Username;
-            pictureBox1.BackgroundImage = person.GetAvatar();
-            StatusLabel.Text = person.Status.ToString();
-        }
-
-        public void UpdateStatus(string stat)
-        {
-            StatusLabel.Text = stat;
+            chan = person;
+            UsernameLabel.Text = person.Title;
+            pictureBox1.BackgroundImage = person.Members.First().GetAvatar();
+            StatusLabel.Text = person.Description;
         }
 
         public event Func<IChannel, Task> ClickCon;
 
         private void UsernameLabel_Click(object sender, EventArgs e)
         {
-            if (ClickCon != null) ClickCon.Invoke(User.Channel);
+            if (ClickCon != null) ClickCon.Invoke(chan);
         }
     }
 }

@@ -13,12 +13,16 @@ namespace Luski.UI.MainScreen.User_Control
 {
     public partial class Chat : UserControl
     {
+        public string id = "-1";
         IUser lastUser = null;
         ChatMessage lastMessage = null;
-
+        int down = 0;
+        int downn = 0;
         public Chat()
         {
             InitializeComponent();
+            down = Height- luskiTextBox1.Location.Y;
+            downn = Height - (MessagesPanel.Location.Y + MessagesPanel.Size.Height);
         }
 
         private void MessagesPanel_Paint(object sender, PaintEventArgs e)
@@ -26,39 +30,88 @@ namespace Luski.UI.MainScreen.User_Control
 
         }
 
+        public void UpdateChannel(string Name, string dec = null)
+        {
+            label1.Text = Name;
+            if (dec != null)
+            {
+                label2.Visible = true;
+                label2.Text = dec;
+                label2.Location = new Point(label1.Location.X + label1.Size.Width + 2, label2.Location.Y);
+            }
+            else
+            {
+                label2.Visible = false;
+            }
+        }
+
+        public void ClearChat()
+        {
+            id = "-1";
+            MessagesPanel.Controls.Clear();
+            lastMessage = null;
+            lastUser = null;
+        }
+
         public void addMessage(IMessage message)
         {
-            if (message.GetAuthor() == null)
+            if (id == "-1") id = message.GetChannel().Id.ToString();
+            IUser a = message.GetAuthor();
+            if (a == null)
             {
                 return;
             }
-
-            if (lastUser == null || lastUser.ID != message.GetAuthor().ID)
+            
+            if (lastUser == null)
             {
-                if (lastMessage == null)
+
+                if (MessagesPanel.InvokeRequired)
                 {
-                    MessagesPanel.Controls.Add(lastMessage = new ChatMessage(message)
+                    MessagesPanel.Invoke(new Action(() =>
                     {
-                        Size = new Size(MessagesPanel.Width, 48),
-                        Anchor = AnchorStyles.Left | AnchorStyles.Right,
-                        Location = new Point(3,3),
-                    });
+                        MessagesPanel.Controls.Add(lastMessage = new ChatMessage(message)
+                        {
+                            Size = new Size(MessagesPanel.Width - 25, 48),
+                            Anchor = AnchorStyles.Left | AnchorStyles.Right,
+                        });
+                    }));
                 }
                 else
                 {
                     MessagesPanel.Controls.Add(lastMessage = new ChatMessage(message)
                     {
-                        Size = new Size(MessagesPanel.Width, 48),
+                        Size = new Size(MessagesPanel.Width -25, 48),
                         Anchor = AnchorStyles.Left | AnchorStyles.Right,
                     });
                 }
             }
-            else if (lastMessage != null)
+            else if (lastUser.ID != a.ID)
+            {
+                if (MessagesPanel.InvokeRequired)
+                {
+                    MessagesPanel.Invoke(new Action(() =>
+                    {
+                        MessagesPanel.Controls.Add(lastMessage = new ChatMessage(message)
+                        {
+                            Size = new Size(MessagesPanel.Width -25, 48),
+                            Anchor = AnchorStyles.Left | AnchorStyles.Right,
+                        });
+                    }));
+                }
+                else
+                {
+                    MessagesPanel.Controls.Add(lastMessage = new ChatMessage(message)
+                    {
+                        Size = new Size(MessagesPanel.Width-25, 48),
+                        Anchor = AnchorStyles.Left | AnchorStyles.Right,
+                    });
+                }
+            }
+            else
             {
                 lastMessage.AddMessage(message);
             }
-
-            lastUser = message.GetAuthor();
+            lastUser = a;
         }
 
         public void addMessageInline(IMessage message)
@@ -66,46 +119,21 @@ namespace Luski.UI.MainScreen.User_Control
             MessagesPanel.Controls.Add(new ChatMessageInline(message));
         }
 
-        private void luskiFilledButton1_Click(object sender, EventArgs e)
-        {
-            //luskiButton1.BlendingFactor += 1;
-        }
-
-        private void luskiButton1_Enter(object sender, EventArgs e)
-        {
-            //luskiButton1.BlendingFactor += 0.05f;
-        }
-
-        private void luskiButton1_MouseHover(object sender, EventArgs e)
-        {
-            //luskiButton1.BlendingFactor += 0.2f;
-        }
-
-        private void luskiButton1_MouseEnter(object sender, EventArgs e)
-        {
-            //luskiButton1.BlendingFactor += 0.2f;
-        }
-
-        private void luskiTextBox1_Click(object sender, EventArgs e)
-        {
-
-        }
-
         private void Chat_Resize(object sender, EventArgs e)
         {
             panel1.Width = this.Width;
+            luskiTextBox1.Width = Width - (luskiTextBox1.Location.X * 2);
+            if (down != 0) luskiTextBox1.Location = new Point(luskiTextBox1.Location.X, Height - down);
+            if (downn != 0) MessagesPanel.Size = new Size(MessagesPanel.Size.Width, Height - downn);
         }
 
-        private void luskiTextBox2_KeyPress(object sender, KeyPressEventArgs e)
+        private void luskiTextBox1_KeyDown(object sender, KeyEventArgs e)
         {
-            
-        }
-
-        private void luskiTextBox2_KeyDown(object sender, KeyEventArgs e)
-        {
+            base.OnKeyDown(e);
             if (e.KeyCode == Keys.Enter)
             {
-                Program.Server.SendMessage(luskiTextBox2.Text, Program.Server.CurrentUser.SelectedChannel);
+                Program.Server.SendMessage(luskiTextBox1.Text, Program.Server.CurrentUser.SelectedChannel);
+                luskiTextBox1.Clear();
             }
         }
     }

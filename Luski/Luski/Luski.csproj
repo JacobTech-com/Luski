@@ -35,8 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Luski.net">
-      <HintPath>..\..\..\..\..\..\Downloads\Luski.net.dll</HintPath>
+    <Reference Include="Luski.net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\Luski.net\Luski.net\Luski.net\bin\Debug\Luski.net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -51,6 +52,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Extension.cs" />
     <Compile Include="GUI\Controls\ButtonTheme.cs" />
     <Compile Include="GUI\Controls\LuskiButton.cs">
       <SubType>Component</SubType>
@@ -80,17 +82,35 @@
     <Compile Include="GUI\Win32.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UI\Login\Login.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\Login\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Login\UI\Login.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Login\UI\Login.Designer.cs">
+      <DependentUpon>Login.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Login\UI\Create_Account.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Login\UI\Create_Account.Designer.cs">
+      <DependentUpon>Create_Account.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\Login\UI\old.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\Login\UI\old.Designer.cs">
+      <DependentUpon>old.cs</DependentUpon>
+    </Compile>
     <Compile Include="UI\MainScreen\MainScreen.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="UI\MainScreen\MainScreen.Designer.cs">
       <DependentUpon>MainScreen.cs</DependentUpon>
-    </Compile>
-    <Compile Include="UI\MainScreen\Main_Form.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UI\MainScreen\Main_Form.Designer.cs">
-      <DependentUpon>Main_Form.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainScreen\User Control\CallPanel.cs">
       <SubType>UserControl</SubType>
@@ -115,6 +135,12 @@
     </Compile>
     <Compile Include="UI\MainScreen\User Control\ChatMessageInline.Designer.cs">
       <DependentUpon>ChatMessageInline.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\MainScreen\User Control\Group.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="UI\MainScreen\User Control\Group.Designer.cs">
+      <DependentUpon>Group.cs</DependentUpon>
     </Compile>
     <Compile Include="UI\MainScreen\User Control\Friend.cs">
       <SubType>UserControl</SubType>
@@ -141,11 +167,20 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="UI\Login\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Login\UI\Login.resx">
+      <DependentUpon>Login.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Login\UI\Create_Account.resx">
+      <DependentUpon>Create_Account.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\Login\UI\old.resx">
+      <DependentUpon>old.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="UI\MainScreen\MainScreen.resx">
       <DependentUpon>MainScreen.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="UI\MainScreen\Main_Form.resx">
-      <DependentUpon>Main_Form.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainScreen\User Control\CallPanel.resx">
       <DependentUpon>CallPanel.cs</DependentUpon>
@@ -158,6 +193,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainScreen\User Control\ChatMessageInline.resx">
       <DependentUpon>ChatMessageInline.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\MainScreen\User Control\Group.resx">
+      <DependentUpon>Group.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UI\MainScreen\User Control\Friend.resx">
       <DependentUpon>Friend.cs</DependentUpon>
@@ -180,13 +218,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="UI\Login\UI\" />
     <Folder Include="UI\MainScreen\User Control\FriendsPanel\" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="MetroModernUI">
-      <Version>1.4.0</Version>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json">
       <Version>12.0.3</Version>
     </PackageReference>
@@ -220,6 +254,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\13.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\LuskiLogo1.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

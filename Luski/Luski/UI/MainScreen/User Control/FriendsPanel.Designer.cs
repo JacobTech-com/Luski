@@ -28,63 +28,78 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.radioButton1 = new System.Windows.Forms.RadioButton();
-            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.luskiTabControl1 = new Luski.GUI.Controls.LuskiTabControl();
+            this.tabPage1 = new System.Windows.Forms.TabPage();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.Freiend_req = new System.Windows.Forms.TabPage();
+            this.luskiTabControl1.SuspendLayout();
+            this.tabPage1.SuspendLayout();
             this.SuspendLayout();
             // 
-            // radioButton1
+            // luskiTabControl1
             // 
-            this.radioButton1.AutoSize = true;
-            this.radioButton1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.radioButton1.ForeColor = System.Drawing.SystemColors.Control;
-            this.radioButton1.Location = new System.Drawing.Point(32, 37);
-            this.radioButton1.Name = "radioButton1";
-            this.radioButton1.Size = new System.Drawing.Size(87, 24);
-            this.radioButton1.TabIndex = 0;
-            this.radioButton1.TabStop = true;
-            this.radioButton1.Text = "Friends";
-            this.radioButton1.UseVisualStyleBackColor = false;
+            this.luskiTabControl1.Controls.Add(this.tabPage1);
+            this.luskiTabControl1.Controls.Add(this.Freiend_req);
+            this.luskiTabControl1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.luskiTabControl1.Location = new System.Drawing.Point(0, 0);
+            this.luskiTabControl1.Name = "luskiTabControl1";
+            this.luskiTabControl1.SelectedIndex = 0;
+            this.luskiTabControl1.Size = new System.Drawing.Size(1048, 877);
+            this.luskiTabControl1.TabIndex = 0;
             // 
-            // radioButton2
+            // tabPage1
             // 
-            this.radioButton2.AutoSize = true;
-            this.radioButton2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.radioButton2.ForeColor = System.Drawing.SystemColors.Control;
-            this.radioButton2.Location = new System.Drawing.Point(140, 37);
-            this.radioButton2.Name = "radioButton2";
-            this.radioButton2.Size = new System.Drawing.Size(152, 24);
-            this.radioButton2.TabIndex = 1;
-            this.radioButton2.TabStop = true;
-            this.radioButton2.Text = "Friend Requests";
-            this.radioButton2.UseVisualStyleBackColor = false;
+            this.tabPage1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.tabPage1.Controls.Add(this.flowLayoutPanel1);
+            this.tabPage1.ForeColor = System.Drawing.Color.White;
+            this.tabPage1.Location = new System.Drawing.Point(4, 29);
+            this.tabPage1.Name = "tabPage1";
+            this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPage1.Size = new System.Drawing.Size(1040, 844);
+            this.tabPage1.TabIndex = 0;
+            this.tabPage1.Text = "Friends";
             // 
             // flowLayoutPanel1
             // 
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(32, 67);
+            this.flowLayoutPanel1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(3, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(998, 790);
-            this.flowLayoutPanel1.TabIndex = 2;
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1034, 838);
+            this.flowLayoutPanel1.TabIndex = 0;
+            // 
+            // Freiend_req
+            // 
+            this.Freiend_req.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
+            this.Freiend_req.ForeColor = System.Drawing.Color.Gray;
+            this.Freiend_req.Location = new System.Drawing.Point(4, 29);
+            this.Freiend_req.Name = "Freiend_req";
+            this.Freiend_req.Padding = new System.Windows.Forms.Padding(3);
+            this.Freiend_req.Size = new System.Drawing.Size(1040, 844);
+            this.Freiend_req.TabIndex = 1;
+            this.Freiend_req.Text = "Friend Request";
             // 
             // FriendsPanel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(32)))), ((int)(((byte)(32)))), ((int)(((byte)(32)))));
-            this.Controls.Add(this.flowLayoutPanel1);
-            this.Controls.Add(this.radioButton2);
-            this.Controls.Add(this.radioButton1);
+            this.Controls.Add(this.luskiTabControl1);
             this.Name = "FriendsPanel";
             this.Size = new System.Drawing.Size(1048, 877);
+            this.Load += new System.EventHandler(this.FriendsPanel_Load);
+            this.luskiTabControl1.ResumeLayout(false);
+            this.tabPage1.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
 
-        private System.Windows.Forms.RadioButton radioButton1;
-        private System.Windows.Forms.RadioButton radioButton2;
+        private GUI.Controls.LuskiTabControl luskiTabControl1;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TabPage Freiend_req;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
     }
 }

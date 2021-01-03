@@ -15,7 +15,8 @@ namespace Luski.GUI.Controls
         bool buttonGlowState = true;
         private Image blendImageLight = null;
         private Image blendImageDark = null;
-        private float blendingFactor = 0F;
+        private float blendingfactor = 0.0005f;
+        private float currentblend = 0.0005F;
         private Color backColor;
 
         public Image LightBlendImage
@@ -32,8 +33,8 @@ namespace Luski.GUI.Controls
 
         public float BlendingFactor
         {
-            get { return blendingFactor; }
-            set { blendingFactor = value; Invalidate(); }
+            get { return blendingfactor; }
+            set { blendingfactor = value; Invalidate(); }
         }
 
         public Color BackColor
@@ -151,20 +152,20 @@ namespace Luski.GUI.Controls
                 // FALSE = can go dark, dont do light code
                 if (buttonGlowState) 
                 {
-                    if (blendingFactor < 1)
+                    if (currentblend < 1)
                     {
-                        blendingFactor += 0.0005f;
+                        currentblend += blendingfactor;
                     }
-                    else if (blendingFactor > 1)
+                    else if (currentblend > 1)
                     {
                         buttonGlowState = false;
                     }
                 }
                 if (!buttonGlowState)
                 {
-                    blendingFactor -= 0.0005f;
+                    currentblend -= blendingfactor;
 
-                    if (blendingFactor < 0) // classic notch mistake
+                    if (currentblend < 0) // classic notch mistake
                     {
                         buttonGlowState = true;
                     }
@@ -173,7 +174,7 @@ namespace Luski.GUI.Controls
                 Rectangle rc = new Rectangle();
                 System.Drawing.Imaging.ColorMatrix cm = new System.Drawing.Imaging.ColorMatrix();
                 System.Drawing.Imaging.ImageAttributes ia = new System.Drawing.Imaging.ImageAttributes();
-                cm.Matrix33 = blendingFactor;
+                cm.Matrix33 = currentblend;
                 ia.SetColorMatrix(cm);
 
                 // Bright top & bottom border
@@ -185,7 +186,7 @@ namespace Luski.GUI.Controls
                 e.Graphics.DrawImage(LightBlendImage, rc, 0, 0, LightBlendImage.Width, LightBlendImage.Height, GraphicsUnit.Pixel, ia);
 
                 // Prepare for dark borders
-                cm.Matrix33 = 1F - blendingFactor;
+                cm.Matrix33 = 1F - currentblend;
                 ia.SetColorMatrix(cm);
 
                 // Dark top & bottom border

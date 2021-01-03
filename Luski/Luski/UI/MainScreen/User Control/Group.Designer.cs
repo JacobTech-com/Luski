@@ -1,7 +1,7 @@
 ﻿
 namespace Luski.UI.MainScreen.User_Control
 {
-    partial class Friend
+    partial class Group
     {
         /// <summary> 
         /// Required designer variable.
@@ -70,7 +70,7 @@ namespace Luski.UI.MainScreen.User_Control
             this.StatusLabel.Text = "Status";
             this.StatusLabel.Click += new System.EventHandler(this.UsernameLabel_Click);
             // 
-            // Friend
+            // Group
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -78,8 +78,8 @@ namespace Luski.UI.MainScreen.User_Control
             this.Controls.Add(this.StatusLabel);
             this.Controls.Add(this.UsernameLabel);
             this.Controls.Add(this.pictureBox1);
-            this.Name = "Friend";
-            this.Size = new System.Drawing.Size(433, 79);
+            this.Name = "Group";
+            this.Size = new System.Drawing.Size(428, 79);
             this.Click += new System.EventHandler(this.UsernameLabel_Click);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
