@@ -65,7 +65,7 @@ namespace Luski.UI.MainScreen
             //ThemeManager.ThemeUpdate += ThemeManager_ThemeUpdate;
 
             var m = Program.Server.CurrentUser.GetAvatar();
-            UserIcon.BackgroundImage = m.CropToCircle(m.Width /2, BackColor);
+            UserIcon.BackgroundImage = m;
             UsernameLabel.Text = Program.Server.CurrentUser.Username;
             int inttag = Program.Server.CurrentUser.Tag;
             string tag;
@@ -83,11 +83,14 @@ namespace Luski.UI.MainScreen
 
             foreach (IRemoteUser item in friends)
             {
-                chans.Add(item.Channel);
-                Friend friend = new Friend(item);
-                fr.Add(friend);
-                friend.ClickCon += Friend_Click;
-                ChannelPickerPanel.Controls.Add(friend);
+                if (item.Channel != null)
+                {
+                    chans.Add(item.Channel);
+                    Friend friend = new Friend(item);
+                    fr.Add(friend);
+                    friend.ClickCon += Friend_Click;
+                    ChannelPickerPanel.Controls.Add(friend);
+                }
             }
 
             foreach (IChannel ch in Program.Server.CurrentUser.Channels)
@@ -102,7 +105,7 @@ namespace Luski.UI.MainScreen
 
             IChannel chan = Program.Server.GetChannel(Program.Server.CurrentUser.SelectedChannel);
             chat1.UpdateChannel(chan.Title, chan.Description);
-            IReadOnlyList<IMessage> msgs = chan.GetMessages();
+            IReadOnlyList<IMessage> msgs = chan.GetMessages(200);
             foreach (IMessage msg in msgs.Reverse())
             {
                 chat1.addMessage(msg);
@@ -126,8 +129,8 @@ namespace Luski.UI.MainScreen
         {
             if (chat1.id != channel.Id.ToString())
             {
-                chat1.UpdateChannel(channel.Title, channel.Description);
                 chat1.ClearChat();
+                chat1.UpdateChannel(channel.Title, channel.Description);
                 IReadOnlyList<IMessage> msgs = channel.GetMessages();
                 foreach (IMessage msg in msgs.Reverse())
                 {
@@ -231,6 +234,67 @@ namespace Luski.UI.MainScreen
                 else
                 {
                     WindowState = FormWindowState.Maximized;
+                }
+            }
+        }
+
+        private void UserIcon_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chat1_Load(object sender, EventArgs e)
+        {
+            dynamic aaa = "{\"thing\":\"test\"}";
+            string aaaa = (string)aaa;
+        }
+
+        private void ChannelPickerPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void luskiButton1_Click(object sender, EventArgs e)
+        {
+            if (friendsPanel1.Enabled)
+            {
+                friendsPanel1.Enabled = false;
+                friendsPanel1.Visible = false;
+                friendsPanel1.SendToBack();
+                luskiButton1.Text = "Friends";
+            }
+            else
+            {
+                friendsPanel1.Enabled = true;
+                friendsPanel1.Visible = true;
+                friendsPanel1.BringToFront();
+                luskiButton1.Text = "Friends (Viewing)";
+            }
+        }
+
+        private void luskiButton2_Click(object sender, EventArgs e)
+        {
+             
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            // do funny test
+            int dir = 0;
+            while (true)
+            {
+                if (Width < 500 && dir == 0)
+                {
+                    Width++;
+                }
+                else if (Width > 100)
+                {
+                    dir = 1;
+                    Width--;
+                }
+                else
+                {
+                    dir = 0;
                 }
             }
         }

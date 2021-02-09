@@ -36,29 +36,33 @@ namespace Luski.UI.Login
             // create_Account1
             // 
             this.create_Account1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.create_Account1.Location = new System.Drawing.Point(690, 252);
+            this.create_Account1.Location = new System.Drawing.Point(460, 164);
+            this.create_Account1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.create_Account1.Name = "create_Account1";
-            this.create_Account1.Size = new System.Drawing.Size(411, 654);
+            this.create_Account1.Size = new System.Drawing.Size(274, 425);
             this.create_Account1.TabIndex = 0;
             // 
             // login_UI1
             // 
             this.login_UI1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
-            this.login_UI1.Location = new System.Drawing.Point(81, 252);
+            this.login_UI1.Location = new System.Drawing.Point(54, 164);
+            this.login_UI1.Margin = new System.Windows.Forms.Padding(1, 1, 1, 1);
             this.login_UI1.Name = "login_UI1";
-            this.login_UI1.Size = new System.Drawing.Size(411, 525);
+            this.login_UI1.Size = new System.Drawing.Size(274, 341);
             this.login_UI1.TabIndex = 1;
             // 
             // Login
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1353, 1156);
+            this.ClientSize = new System.Drawing.Size(902, 690);
             this.Controls.Add(this.login_UI1);
             this.Controls.Add(this.create_Account1);
+            this.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.Name = "Login";
             this.Text = "Login";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
+            this.Load += new System.EventHandler(this.Login_Load);
             this.ResumeLayout(false);
 
         }

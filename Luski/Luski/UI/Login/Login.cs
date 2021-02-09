@@ -15,7 +15,13 @@ namespace Luski.UI.Login
         public Login()
         {
             InitializeComponent();
-            var titleBar = CoreApplication.GetForCurrentView().TitleBar;
+            //var titleBar = CoreApplication.GetForCurrentView().TitleBar;
+            
+        }
+
+        private void Login_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

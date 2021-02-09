@@ -37,7 +37,7 @@
   <ItemGroup>
     <Reference Include="Luski.net, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\Luski.net\Luski.net\Luski.net\bin\Debug\Luski.net.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\Downloads\Luski.net.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

@@ -32,8 +32,8 @@
             this.panel2 = new System.Windows.Forms.Panel();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.luskiTextBox1 = new Luski.GUI.Controls.LuskiTextBox();
             this.MessagesPanel = new System.Windows.Forms.FlowLayoutPanel();
+            this.luskiTextBox1 = new Luski.GUI.Controls.LuskiTextBox();
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -46,14 +46,15 @@
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Margin = new System.Windows.Forms.Padding(0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(1050, 86);
+            this.panel1.Size = new System.Drawing.Size(700, 56);
             this.panel1.TabIndex = 0;
             // 
             // panel2
             // 
-            this.panel2.Location = new System.Drawing.Point(3, 83);
+            this.panel2.Location = new System.Drawing.Point(2, 54);
+            this.panel2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             this.panel2.Name = "panel2";
-            this.panel2.Size = new System.Drawing.Size(1044, 10);
+            this.panel2.Size = new System.Drawing.Size(696, 6);
             this.panel2.TabIndex = 0;
             // 
             // label2
@@ -61,9 +62,10 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.SystemColors.ButtonShadow;
-            this.label2.Location = new System.Drawing.Point(67, 35);
+            this.label2.Location = new System.Drawing.Point(45, 23);
+            this.label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(46, 20);
+            this.label2.Size = new System.Drawing.Size(32, 13);
             this.label2.TabIndex = 1;
             this.label2.Text = "Desc";
             // 
@@ -72,11 +74,24 @@
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.ForeColor = System.Drawing.SystemColors.Control;
-            this.label1.Location = new System.Drawing.Point(12, 31);
+            this.label1.Location = new System.Drawing.Point(8, 20);
+            this.label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(49, 25);
+            this.label1.Size = new System.Drawing.Size(35, 17);
             this.label1.TabIndex = 0;
             this.label1.Text = "Title";
+            // 
+            // MessagesPanel
+            // 
+            this.MessagesPanel.AccessibleName = "what if";
+            this.MessagesPanel.AutoScroll = true;
+            this.MessagesPanel.Location = new System.Drawing.Point(1, 54);
+            this.MessagesPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.MessagesPanel.Name = "MessagesPanel";
+            this.MessagesPanel.Size = new System.Drawing.Size(700, 460);
+            this.MessagesPanel.TabIndex = 5;
+            this.MessagesPanel.ControlAdded += new System.Windows.Forms.ControlEventHandler(this.MessagesPanel_ControlAdded);
+            this.MessagesPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.MessagesPanel_Paint_1);
             // 
             // luskiTextBox1
             // 
@@ -84,7 +99,8 @@
             this.luskiTextBox1.DarkBlendImage = null;
             this.luskiTextBox1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.7F);
             this.luskiTextBox1.LightBlendImage = null;
-            this.luskiTextBox1.Location = new System.Drawing.Point(17, 812);
+            this.luskiTextBox1.Location = new System.Drawing.Point(12, 527);
+            this.luskiTextBox1.Margin = new System.Windows.Forms.Padding(2);
             this.luskiTextBox1.MaxTextLength = 32767;
             this.luskiTextBox1.Multiline = false;
             this.luskiTextBox1.Name = "luskiTextBox1";
@@ -94,24 +110,17 @@
             this.luskiTextBox1.SelectedText = "";
             this.luskiTextBox1.SelectionLength = 0;
             this.luskiTextBox1.SelectionStart = 0;
-            this.luskiTextBox1.Size = new System.Drawing.Size(1012, 38);
+            this.luskiTextBox1.Size = new System.Drawing.Size(675, 31);
             this.luskiTextBox1.TabIndex = 4;
             this.luskiTextBox1.TabStop = false;
             this.luskiTextBox1.ThemeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
             this.luskiTextBox1.UseSystemPasswordChar = false;
+            this.luskiTextBox1.Click += new System.EventHandler(this.luskiTextBox1_Click);
             this.luskiTextBox1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.luskiTextBox1_KeyDown);
-            // 
-            // MessagesPanel
-            // 
-            this.MessagesPanel.AutoScroll = true;
-            this.MessagesPanel.Location = new System.Drawing.Point(0, 93);
-            this.MessagesPanel.Name = "MessagesPanel";
-            this.MessagesPanel.Size = new System.Drawing.Size(1050, 611);
-            this.MessagesPanel.TabIndex = 5;
             // 
             // Chat
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(50)))), ((int)(((byte)(50)))), ((int)(((byte)(50)))));
             this.Controls.Add(this.MessagesPanel);
@@ -119,7 +128,7 @@
             this.Controls.Add(this.luskiTextBox1);
             this.Margin = new System.Windows.Forms.Padding(0);
             this.Name = "Chat";
-            this.Size = new System.Drawing.Size(1050, 878);
+            this.Size = new System.Drawing.Size(700, 570);
             this.Resize += new System.EventHandler(this.Chat_Resize);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();

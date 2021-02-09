@@ -14,9 +14,6 @@ namespace Luski.UI.Login.UI
 {
     public partial class Login_UI : UserControl
     {
-        bool Email = false;
-        bool pw = false;
-
         public Login_UI()
         {
             InitializeComponent();
@@ -24,39 +21,18 @@ namespace Luski.UI.Login.UI
 
         private async void LollipopButton2_Click(object sender, EventArgs e)
         {
-            try
+            if (metroTextBox1.Text.Contains("@") && metroTextBox1.Text.Length > 5 && metroTextBox4.Text.Length > 8)
             {
-                if (Email && pw)
-                {
-                    new MainScreen.MainScreen(new Server.Login(metroTextBox1.Text, metroTextBox4.Text)).Show();
-                }
-                else
-                {
-                    MessageBox.Show("Fill in your email and password");
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
+                new MainScreen.MainScreen(new Server.Login(metroTextBox1.Text, metroTextBox4.Text)).Show();
             }
         }
 
         private void metroTextBox1_Click(object sender, EventArgs e)
         {
-            if (!Email)
-            {
-                metroTextBox1.Clear();
-                Email = true;
-            }
         }
 
         private void metroTextBox4_Click(object sender, EventArgs e)
         {
-            if (!pw)
-            {
-                metroTextBox4.Clear();
-                pw = true;
-            }
         }
     }
 }

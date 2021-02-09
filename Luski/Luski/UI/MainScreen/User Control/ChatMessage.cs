@@ -44,7 +44,7 @@ namespace Luski.UI.MainScreen.User_Control
                     lastY += messageGroupSpacing + textSize.Height;
                     Height += messageGroupSpacing + textSize.Height;
                     Controls.Add(newLabel);
-                    newLabel.Focus();
+                    //newLabel.Focus();
                 }));
             }
             else
@@ -52,7 +52,7 @@ namespace Luski.UI.MainScreen.User_Control
                 lastY += messageGroupSpacing + textSize.Height;
                 Height += messageGroupSpacing + textSize.Height;
                 Controls.Add(newLabel);
-                newLabel.Focus();
+                //newLabel.Focus();
             }
         }
 
@@ -73,7 +73,7 @@ namespace Luski.UI.MainScreen.User_Control
             label2.Width = textSize.Width;
             label2.Height = textSize.Height;
             label2.Text = _msg.Context;
-            label2.Focus();
+            //label2.Focus();
             lastY = label2.Location.Y + label2.Height;
         }
     }

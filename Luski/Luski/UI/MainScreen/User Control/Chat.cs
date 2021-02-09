@@ -72,7 +72,7 @@ namespace Luski.UI.MainScreen.User_Control
                         MessagesPanel.Controls.Add(lastMessage = new ChatMessage(message)
                         {
                             Size = new Size(MessagesPanel.Width - 25, 48),
-                            Anchor = AnchorStyles.Left | AnchorStyles.Right,
+                            Anchor = AnchorStyles.Left | AnchorStyles.Right
                         });
                     }));
                 }
@@ -81,7 +81,7 @@ namespace Luski.UI.MainScreen.User_Control
                     MessagesPanel.Controls.Add(lastMessage = new ChatMessage(message)
                     {
                         Size = new Size(MessagesPanel.Width -25, 48),
-                        Anchor = AnchorStyles.Left | AnchorStyles.Right,
+                        Anchor = AnchorStyles.Left | AnchorStyles.Right
                     });
                 }
             }
@@ -94,7 +94,7 @@ namespace Luski.UI.MainScreen.User_Control
                         MessagesPanel.Controls.Add(lastMessage = new ChatMessage(message)
                         {
                             Size = new Size(MessagesPanel.Width -25, 48),
-                            Anchor = AnchorStyles.Left | AnchorStyles.Right,
+                            Anchor = AnchorStyles.Left | AnchorStyles.Right
                         });
                     }));
                 }
@@ -103,7 +103,7 @@ namespace Luski.UI.MainScreen.User_Control
                     MessagesPanel.Controls.Add(lastMessage = new ChatMessage(message)
                     {
                         Size = new Size(MessagesPanel.Width-25, 48),
-                        Anchor = AnchorStyles.Left | AnchorStyles.Right,
+                        Anchor = AnchorStyles.Left | AnchorStyles.Right
                     });
                 }
             }
@@ -112,6 +112,10 @@ namespace Luski.UI.MainScreen.User_Control
                 lastMessage.AddMessage(message);
             }
             lastUser = a;
+
+            MessagesPanel.VerticalScroll.Value = 0;
+            MessagesPanel.ScrollControlIntoView(lastMessage);
+            MessagesPanel.PerformLayout();
         }
 
         public void addMessageInline(IMessage message)
@@ -124,7 +128,8 @@ namespace Luski.UI.MainScreen.User_Control
             panel1.Width = this.Width;
             luskiTextBox1.Width = Width - (luskiTextBox1.Location.X * 2);
             if (down != 0) luskiTextBox1.Location = new Point(luskiTextBox1.Location.X, Height - down);
-            if (downn != 0) MessagesPanel.Size = new Size(MessagesPanel.Size.Width, Height - downn);
+            if (downn != 0) MessagesPanel.Size = new Size(MessagesPanel.Size.Width, Height - 110);
+            // well hey now we have sliding animation code
         }
 
         private void luskiTextBox1_KeyDown(object sender, KeyEventArgs e)
@@ -133,8 +138,42 @@ namespace Luski.UI.MainScreen.User_Control
             if (e.KeyCode == Keys.Enter)
             {
                 Program.Server.SendMessage(luskiTextBox1.Text, Program.Server.CurrentUser.SelectedChannel);
-                luskiTextBox1.Clear();
             }
+        }
+
+        private void MessagesPanel_Paint_1(object sender, PaintEventArgs e)
+        {
+            //pain
+        }
+
+        private void textBox1_KeyDown(object sender, KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+            if (e.KeyCode == Keys.Enter)
+            {
+                Program.Server.SendMessage(luskiTextBox1.Text, Program.Server.CurrentUser.SelectedChannel);
+            }
+        }
+
+        private void luskiTextBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void ScrollPanelTo(int index)
+        {
+            var ctl = MessagesPanel.Controls[index];
+            var loc = ctl.Location - new Size(MessagesPanel.AutoScrollPosition);
+            loc -= new Size(ctl.Margin.Left, ctl.Margin.Top);
+            MessagesPanel.AutoScrollPosition = loc;
+            ctl.Focus();
+        }
+
+        private void MessagesPanel_ControlAdded(object sender, ControlEventArgs e)
+        {
+            e.Control.Parent = MessagesPanel;
+            ActiveControl = e.Control;
+            MessagesPanel.ScrollControlIntoView(e.Control);
         }
     }
 }
